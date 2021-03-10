@@ -1,0 +1,28 @@
+:root {
+    --dark: #3c4146;
+    --grey: #e2e2e2;
+    --grey-lighter: #fafafa;
+    --grey-darker: #3f3f3f;
+    --white: white;
+    --price: orange;
+}
+
+body,
+figure {
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+    font-weight: normal;
+}
+
+button {
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+* {
+    box-sizing: border-box;
+}
