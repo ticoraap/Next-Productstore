@@ -1,6 +1,8 @@
 import React, { useState, MouseEvent } from "react";
+import Link from "next/link";
 import styled from "@emotion/styled";
 import { observer } from "mobx-react-lite";
+import router, { useRouter } from "next/router";
 
 export interface IHeaderProps {
     cartCount: number;
@@ -8,11 +10,27 @@ export interface IHeaderProps {
 }
 
 export const Header = observer(({ cartCount, onCartClick }: IHeaderProps) => {
+    const router = useRouter();
+
     return (
         <StyledHeader>
-            <StyledLogo alt="M2mobi logo" src="images/logo-desktop.svg" />
+            <Link href="/">
+                <StyledLink>
+                    <StyledLogo
+                        alt="M2mobi logo"
+                        src="/images/logo-desktop.svg"
+                    />
+                </StyledLink>
+            </Link>
+            <StyledMenuItems>
+                <Link href="/new">
+                    <StyledLink active={router.pathname == "/new"}>
+                        new
+                    </StyledLink>
+                </Link>
+            </StyledMenuItems>
             <StyledCartButton aria-label="Cart button" onClick={onCartClick}>
-                <StyledCartSvg src="icons/shoppingcart.svg" />
+                <StyledCartSvg src="/icons/shoppingcart.svg" />
                 <StyledCartAmount>{cartCount}</StyledCartAmount>
             </StyledCartButton>
         </StyledHeader>
@@ -33,6 +51,17 @@ const StyledHeader = styled.header`
 const StyledLogo = styled.img`
     height: 48px;
     margin-right: auto;
+`;
+
+const StyledMenuItems = styled.div`
+    margin-right: auto;
+`;
+
+const StyledLink = styled.a<{ active?: boolean }>`
+    margin-right: auto;
+    cursor: pointer;
+    font-size: 20px;
+    ${(props) => props.active && `border-bottom: 2px solid;`}
 `;
 
 const StyledCartButton = styled.button`

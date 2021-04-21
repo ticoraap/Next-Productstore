@@ -21,8 +21,14 @@ button {
     border: 0;
     outline: none;
     cursor: pointer;
+    background-color: var(--white);
 }
 
 * {
     box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
 }

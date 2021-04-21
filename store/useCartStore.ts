@@ -19,10 +19,10 @@ function createStore() {
                 0
             );
         },
-        isInCart(id: number) {
+        isInCart(id: string) {
             return !!this.products.find((cartProduct) => cartProduct.id === id);
         },
-        removeProduct(id: number) {
+        removeProduct(id: string) {
             const cartProductIndex = this.products.findIndex(
                 (cartProduct) => cartProduct.id === id
             );
@@ -77,4 +77,6 @@ function setPersistedStorage(cart: ICartProduct[]) {
 const cartStore = createStore();
 const CartStoreContext = createContext(cartStore);
 
-export default () => useContext(CartStoreContext);
+const useCartContext = () => useContext(CartStoreContext);
+
+export default useCartContext

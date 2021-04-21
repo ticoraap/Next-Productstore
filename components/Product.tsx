@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { MouseEvent } from "react";
 import styled from "@emotion/styled";
 import { IProduct } from "../models/product";
@@ -11,10 +12,12 @@ export interface IProductProps {
 export function Product({ product, onAddToCartClick }: IProductProps) {
     return (
         <StyledProduct>
-            <StyledPicture
-                alt={`Image of ${product.title}`}
-                src={product.imgurl}
-            />
+            <Link href={"/product/" + product.id}>
+                <StyledPicture
+                    alt={`Image of ${product.title}`}
+                    src={product.imgurl}
+                />
+            </Link>
 
             <StyledAside>
                 <StyledProductInfo>
@@ -64,6 +67,7 @@ const StyledAddButon = styled.button`
 
 const StyledPicture = styled.img`
     width: 100%;
+    cursor: pointer;
 `;
 
 const StyledTitle = styled.strong`

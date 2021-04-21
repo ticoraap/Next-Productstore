@@ -4,21 +4,15 @@ import { breakpoint } from "../utility/breakpoint";
 import { Product } from "../components/Product";
 import useCartStore from "../store/useCartStore";
 import { Api } from "../api";
-import { IProduct } from "../models/product";
 
-export default function Index() {
+export default function Index(props) {
     const cartStore = useCartStore();
-    const [products, setProducts] = useState<IProduct[]>([]);
-
-    useEffect(() => {
-        Api.product.getAll().then(setProducts);
-    }, []);
 
     return (
         <Main>
-            <Title>{products.length} Products</Title>
+            <Title>{props.products.length} Products</Title>
             <Products>
-                {products.map((product) => (
+                {props.products.map((product) => (
                     <Product
                         key={product.id}
                         product={product}
@@ -28,6 +22,16 @@ export default function Index() {
             </Products>
         </Main>
     );
+}
+
+export async function getStaticProps() {
+    const products = await Api.product.getAll();
+
+    return {
+        props: {
+            products,
+        },
+    };
 }
 
 const Main = styled.main`
