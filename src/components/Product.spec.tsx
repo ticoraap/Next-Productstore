@@ -7,9 +7,10 @@ describe("Product", () => {
         const props: IProductProps = {
             onAddToCartClick: null,
             product: {
-                id: 0,
+                id: "",
                 title: "",
                 subtitle: "",
+                description: "",
                 imgurl: "",
                 price: 0,
                 ...overrides.product,
