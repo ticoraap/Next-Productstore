@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { breakpoint } from "../utility/breakpoint";
+import { breakpoint } from "../styles/theme/responsive/breakpoints";
 import { Product } from "../components/Product";
 import useCartStore from "../store/useCartStore";
 import { contentApi } from "../features/shared/data/contentful";
@@ -66,11 +66,11 @@ const Products = styled.section`
         grid-template-columns: repeat(3, 1fr);
     }
 
-    ${breakpoint.md} {
+    ${breakpoint.m} {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    ${breakpoint.sm} {
+    ${breakpoint.s} {
         grid-template-columns: repeat(1, 1fr);
     }
 `;

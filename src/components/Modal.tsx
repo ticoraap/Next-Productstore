@@ -1,7 +1,8 @@
 import React, { MouseEventHandler } from "react";
 import styled from "@emotion/styled";
 import { Backdrop } from "./Backdrop";
-import { breakpoint } from "../utility/breakpoint";
+import { breakpoint } from "../styles/theme/responsive/breakpoints";
+import { ZIndex } from "../styles/globals/ZIndex";
 
 export interface IModalProps {
     children: React.ReactNode;
@@ -24,7 +25,7 @@ const StyledModal = styled.div<{ isVisible: boolean }>`
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 1300;
+    z-index: ${ZIndex.modal};
     background-color: var(--white);
     width: 50%;
     padding: 16px;
@@ -36,11 +37,11 @@ const StyledModal = styled.div<{ isVisible: boolean }>`
 
     ${(props) => props.isVisible && `opacity: 1; pointer-events: initial;`}
 
-    ${breakpoint.sm} {
+    ${breakpoint.s} {
         width: 90%;
     }
 
-    ${breakpoint.md} {
+    ${breakpoint.m} {
         width: 75%;
     }
 
