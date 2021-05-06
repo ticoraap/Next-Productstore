@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Api } from "../../api";
+import { contentApi } from "../../features/shared/data/contentful";
+import { ContentType } from "../../features/shared/data/contentful/constants/ContentType";
 
 export default function Index(props) {
     return (
@@ -19,25 +20,37 @@ export default function Index(props) {
 }
 
 export async function getStaticPaths() {
-    const productIds = await Api.product.getAllIds();
-    let paramsArray = [];
-    paramsArray = productIds.map((productId) => {
-        return {
-            params: {
-                productId,
-            },
-        };
-    });
+    const items = await contentApi.getEntriesByType(ContentType.Products);
+    const slugs = items.map((item) => item.fields.slug);
+
     return {
         fallback: false,
-        paths: paramsArray,
+        paths: slugs.map((slug) => {
+            return {
+                params: {
+                    productId: slug,
+                },
+            };
+        }),
     };
 }
 
 export async function getStaticProps(context) {
-    const productId = context.params.productId;
-    if (!productId) return;
-    const product = await Api.product.get(productId);
+    const slug = context.params.productId;
+    if (!slug) return;
+
+    const product = await contentApi
+        .getEntryBySlug(slug, ContentType.Products)
+        .then((item: any) => {
+            return {
+                id: item.sys.id,
+                title: item.fields.title,
+                subtitle: item.fields.subtitle,
+                description: item.fields.description,
+                price: item.fields.price,
+                imgurl: item.fields.imgurl,
+            };
+        });
     return {
         props: {
             product,

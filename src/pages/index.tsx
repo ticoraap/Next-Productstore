@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import { breakpoint } from "../utility/breakpoint";
 import { Product } from "../components/Product";
 import useCartStore from "../store/useCartStore";
-import { Api } from "../api";
+import { contentApi } from "../features/shared/data/contentful";
+import { ContentType } from "../features/shared/data/contentful/constants/ContentType";
 
 export default function Index(props) {
     const cartStore = useCartStore();
@@ -25,7 +26,18 @@ export default function Index(props) {
 }
 
 export async function getStaticProps() {
-    const products = await Api.product.getAll();
+    const items = await contentApi.getEntriesByType(ContentType.Products);
+
+    const products = items.map((item: any) => {
+        return {
+            title: item.fields.title,
+            subtitle: item.fields.subtitle,
+            description: item.fields.description,
+            price: item.fields.price,
+            imgurl: item.fields.imgurl,
+            slug: item.fields.slug,
+        };
+    });
 
     return {
         props: {

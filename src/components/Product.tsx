@@ -12,7 +12,7 @@ export interface IProductProps {
 export function Product({ product, onAddToCartClick }: IProductProps) {
     return (
         <StyledProduct>
-            <Link href={"/product/" + product.id}>
+            <Link href={"/product/" + product.slug}>
                 <StyledPicture
                     alt={`Image of ${product.title}`}
                     src={product.imgurl}
