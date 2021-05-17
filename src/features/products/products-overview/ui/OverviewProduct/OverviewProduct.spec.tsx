@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import React from "react";
 import { deepmerge } from "../../../../../utils-test/deepmerge";
-import { IProductProps, Product } from "./OverviewProduct";
+import { IProductProps, OverviewProduct } from "./OverviewProduct";
 
 describe("Product", () => {
     const createComponent = (overrides: DeepPartial<IProductProps>) => {
@@ -30,7 +30,7 @@ describe("Product", () => {
             overrides
         );
 
-        return render(<Product {...props} />);
+        return render(<OverviewProduct {...props} />);
     };
 
     it("renders a title", () => {

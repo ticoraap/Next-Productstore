@@ -1,19 +1,24 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { Product } from "./OverviewProduct/OverviewProduct";
+import { OverviewProduct } from "./OverviewProduct/OverviewProduct";
 import { MainLayout } from "../../../app-container/ui/layouts/main-layout/MainLayout";
 import { breakpoint } from "../../../../styles/theme/responsive/breakpoints";
 import useCartStore from "../../../../store/useCartStore";
+import { IProductsOverviewViewModel } from "./ProductsOverviewViewModel";
 
-export const ProductsOverviewPage = ({ viewModel }) => {
+export interface IProductsOverviewPageProps {
+    viewModel: IProductsOverviewViewModel
+}
+
+export const ProductsOverviewPage = ({ viewModel }: IProductsOverviewPageProps) => {
     const cartStore = useCartStore();
     return (
         <MainLayout>
             <Title>{viewModel.productsTitle}</Title>
             <Products>
                 {viewModel.productViewModels.map((productViewModel) => (
-                    <Product
+                    <OverviewProduct
                         key={productViewModel.slug}
                         viewModel={productViewModel}
                         onAddToCartClick={() =>

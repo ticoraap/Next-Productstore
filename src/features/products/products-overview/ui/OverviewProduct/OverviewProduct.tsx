@@ -8,7 +8,7 @@ export interface IProductProps {
     onAddToCartClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Product({ viewModel, onAddToCartClick }: IProductProps) {
+export function OverviewProduct({ viewModel, onAddToCartClick }: IProductProps) {
     return (
         <StyledProduct>
             <Link href={viewModel.productURL}>

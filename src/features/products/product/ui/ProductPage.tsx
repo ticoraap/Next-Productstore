@@ -82,6 +82,7 @@ const StyledProductBody = styled.div`
 const StyledProductImage = styled.img`
     max-width: 460px;
     object-fit: cover;   
+    border-radius: 3px;
 `;
 
 const StyledProductDescription = styled.p`
