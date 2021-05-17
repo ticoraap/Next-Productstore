@@ -1,6 +1,6 @@
 import { fireEvent, getByAltText, render } from "@testing-library/react";
 import React from "react";
-import { ICartProduct } from "../models/cartProduct";
+import { ICartProduct } from "../domain/model/cartProduct";
 import { CartProduct, ICartProductProps } from "./CartProduct";
 
 describe("Product", () => {

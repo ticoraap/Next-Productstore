@@ -1,31 +1,30 @@
 import Link from "next/link";
 import React, { MouseEvent } from "react";
 import styled from "@emotion/styled";
-import { IProduct } from "../models/product";
-import { toCurrency } from "../utility/toCurrency";
+import { IProductViewModel } from "./OverviewProductViewModel";
 
 export interface IProductProps {
-    product: IProduct;
+    viewModel: IProductViewModel;
     onAddToCartClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Product({ product, onAddToCartClick }: IProductProps) {
+export function Product({ viewModel, onAddToCartClick }: IProductProps) {
     return (
         <StyledProduct>
-            <Link href={"/product/" + product.slug}>
+            <Link href={viewModel.productURL}>
                 <StyledPicture
-                    alt={`Image of ${product.title}`}
-                    src={product.imgurl}
+                    alt={viewModel.pictureAltText}
+                    src={viewModel.pictureURL}
                 />
             </Link>
 
             <StyledAside>
                 <StyledProductInfo>
-                    <StyledTitle>{product.title}</StyledTitle>
-                    <StyledSubtitle>{product.subtitle}</StyledSubtitle>
+                    <StyledTitle>{viewModel.title}</StyledTitle>
+                    <StyledSubtitle>{viewModel.subtitle}</StyledSubtitle>
                 </StyledProductInfo>
                 <StyledPriceButton>
-                    <StyledPrice>{toCurrency(product.price)}</StyledPrice>
+                    <StyledPrice>{viewModel.formattedPrice}</StyledPrice>
                     <StyledAddButon onClick={onAddToCartClick}>
                         ADD
                     </StyledAddButon>

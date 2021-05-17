@@ -2,7 +2,7 @@ import React, { useState, MouseEvent } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { observer } from "mobx-react-lite";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 export interface IHeaderProps {
     cartCount: number;
@@ -23,11 +23,11 @@ export const Header = observer(({ cartCount, onCartClick }: IHeaderProps) => {
                 </StyledLink>
             </Link>
             <StyledMenuItems>
-                <Link href="/new">
+                {/* <Link href="/new">
                     <StyledLink active={router.pathname == "/new"}>
                         new
                     </StyledLink>
-                </Link>
+                </Link> */}
             </StyledMenuItems>
             <StyledCartButton aria-label="Cart button" onClick={onCartClick}>
                 <StyledCartSvg src="/icons/shoppingcart.svg" />

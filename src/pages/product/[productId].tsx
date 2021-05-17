@@ -1,27 +1,17 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { contentApi } from "../../features/shared/data/contentful";
-import { ContentType } from "../../features/shared/data/contentful/constants/ContentType";
+import { getProduct, getProductsSlugs } from "../../features/products/product/domain/use-cases";
 
-export default function Index(props) {
+import { ProductPage } from '../../features/products/product/ui/ProductPage'
+import { createProductViewModel } from '../../features/products/product/ui/ProductViewModel'
+
+export default function Index({product, ...rest}) {
     return (
-        <StyledProductPreview>
-            <StyledProductTitle>{props.product.title}</StyledProductTitle>
-            <StyledProductSubtitle>
-                {props.product.subtitle}
-            </StyledProductSubtitle>
-
-            <StyledProductImage src={props.product.imgurl} />
-            <StyledProductDescription>
-                {props.product.description}
-            </StyledProductDescription>
-        </StyledProductPreview>
+        <ProductPage viewModel={createProductViewModel(product)} />
     );
 }
 
 export async function getStaticPaths() {
-    const items = await contentApi.getEntriesByType(ContentType.Products);
-    const slugs = items.map((item) => item.fields.slug);
+    const slugs = await getProductsSlugs();
 
     return {
         fallback: false,
@@ -39,33 +29,10 @@ export async function getStaticProps(context) {
     const slug = context.params.productId;
     if (!slug) return;
 
-    const product = await contentApi
-        .getEntryBySlug(slug, ContentType.Products)
-        .then((item: any) => {
-            return {
-                id: item.sys.id,
-                title: item.fields.title,
-                subtitle: item.fields.subtitle,
-                description: item.fields.description,
-                price: item.fields.price,
-                imgurl: item.fields.imgurl,
-            };
-        });
+    const product = await getProduct(slug)
     return {
         props: {
             product,
         },
     };
 }
-
-const StyledProductPreview = styled.div`
-    padding: 0 30px 40px 30px;
-    max-width: 1400px;
-    margin: auto;
-`;
-
-const StyledProductTitle = styled.h1``;
-const StyledProductSubtitle = styled.div``;
-
-const StyledProductImage = styled.img``;
-const StyledProductDescription = styled.p``;

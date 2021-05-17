@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { makeAutoObservable } from "mobx";
-import { ICartProduct } from "../models/cartProduct";
-import { IProduct } from "../models/product";
+import { ICartProduct } from "../features/cart/domain/model/cartProduct";
+import { IProduct } from "../features/products/products-overview/domain/model/product";
 
 function createStore() {
     return makeAutoObservable({
@@ -29,22 +29,22 @@ function createStore() {
             this.products.splice(cartProductIndex, 1);
             setPersistedStorage(this.products);
         },
-        addProduct(product: IProduct) {
+        addProduct(product: IProduct, amount = 1) {
             if (this.isInCart(product.id)) {
-                this.incrementAmount(product);
+                this.incrementAmount(product, amount);
                 return;
             }
             this.products.push({
                 ...product,
-                amount: 1,
+                amount,
             });
             setPersistedStorage(this.products);
         },
-        incrementAmount({ id }: ICartProduct) {
+        incrementAmount({ id }: ICartProduct, amount = 1) {
             const cartProductIndex = this.products.findIndex(
                 (cartProduct) => cartProduct.id === id
             );
-            this.products[cartProductIndex].amount += 1;
+            this.products[cartProductIndex].amount += amount;
             setPersistedStorage(this.products);
         },
         decrementAmount({ id }: ICartProduct) {

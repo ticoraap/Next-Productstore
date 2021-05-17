@@ -8,3 +8,5 @@ export const contentApi = createContentApi({
     environment,
     accessToken,
 });
+
+export type IContentApi = ReturnType<typeof createContentApi>;

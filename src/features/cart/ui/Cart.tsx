@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { ICartProduct } from "../models/cartProduct";
-import useCartStore from "../store/useCartStore";
+import { ICartProduct } from "../domain/model/cartProduct";
+import useCartStore from "../../..//store/useCartStore";
 import { CartProduct } from "./CartProduct";
 import { observer } from "mobx-react-lite";
-import { toCurrency } from "../utility/toCurrency";
+import { toCurrency } from "../../../utils/toCurrency";
 
 export const Cart = observer(() => {
     const cartStore = useCartStore();

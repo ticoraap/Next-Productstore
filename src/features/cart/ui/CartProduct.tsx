@@ -1,8 +1,8 @@
 import React, { MouseEvent } from "react";
 import styled from "@emotion/styled";
-import { ICartProduct } from "../models/cartProduct";
+import { ICartProduct } from "../domain/model/cartProduct";
 import { observer } from "mobx-react-lite";
-import { toCurrency } from "../utility/toCurrency";
+import { toCurrency } from "../../../utils/toCurrency";
 
 export interface ICartProductProps {
     product: ICartProduct;

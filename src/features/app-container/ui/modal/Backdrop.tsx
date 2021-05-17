@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from "react";
 import styled from "@emotion/styled";
-import { ZIndex } from "../styles/globals/ZIndex";
+import { ZIndex } from "../../../../styles/globals/ZIndex";
 
 export interface IBackdropProps {
     isVisible: boolean;
