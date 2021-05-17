@@ -13,9 +13,9 @@ export const MainLayout = observer(({ children }) => {
     const cart = useCartStore();
     return (
         <StyledMainLayout>
-            <head>
+            <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-            </head>
+            </Head>
             <Header
                 onCartClick={() => {
                     setCartVisible(true);
