@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import { OverviewProduct } from "./OverviewProduct/OverviewProduct";
 import { MainLayout } from "../../../app-container/ui/layouts/main-layout/MainLayout";
 import { breakpoint } from "../../../../styles/theme/responsive/breakpoints";
-import useCartStore from "../../../../store/useCartStore";
 import { IProductsOverviewViewModel } from "./ProductsOverviewViewModel";
+import { useCartStore } from "../../../cart/store/useCartStore";
 
 export interface IProductsOverviewPageProps {
     viewModel: IProductsOverviewViewModel

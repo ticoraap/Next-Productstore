@@ -1,9 +1,13 @@
-import { createContext, useContext } from "react";
 import { makeAutoObservable } from "mobx";
-import { ICartProduct } from "../features/cart/domain/model/cartProduct";
-import { IProduct } from "../features/products/products-overview/domain/model/product";
+import { ICartProduct } from "../domain/model/cartProduct";
+import { IProduct } from "../../products/products-overview/domain/model/product";
 
-function createStore() {
+export interface ICartStore {
+    products: ICartProduct[];
+    cartCount: number;
+}
+
+export function createCartStore() {
     return makeAutoObservable({
         products: getPersistedStorage(),
         get cartCount() {
@@ -60,7 +64,7 @@ function createStore() {
     });
 }
 
-function getPersistedStorage() {
+function getPersistedStorage(): ICartProduct[] {
     if (!process.browser) return [];
 
     const storage = localStorage.getItem("cart");
@@ -74,9 +78,4 @@ function setPersistedStorage(cart: ICartProduct[]) {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-const cartStore = createStore();
-const CartStoreContext = createContext(cartStore);
 
-const useCartContext = () => useContext(CartStoreContext);
-
-export default useCartContext

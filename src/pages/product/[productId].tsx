@@ -4,7 +4,7 @@ import { getProduct, getProductsSlugs } from "../../features/products/product/do
 import { ProductPage } from '../../features/products/product/ui/ProductPage'
 import { createProductViewModel } from '../../features/products/product/ui/ProductViewModel'
 
-export default function Index({product, ...rest}) {
+export default function Index({product}) {
     return (
         <ProductPage viewModel={createProductViewModel(product)} />
     );

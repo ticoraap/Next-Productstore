@@ -1,20 +1,20 @@
-import React, { MouseEventHandler } from "react";
+import React, { ReactNode } from "react";
 import styled from "@emotion/styled";
 import { Backdrop } from "./Backdrop";
 import { breakpoint } from "../../../../styles/theme/responsive/breakpoints";
 import { ZIndex } from "../../../../styles/globals/ZIndex";
+import { IModalViewModel } from "./ModalViewModel";
 
 export interface IModalProps {
-    children: React.ReactNode;
-    isVisible: boolean;
-    onBackdropClick: MouseEventHandler<HTMLDivElement>;
+    viewModel: IModalViewModel;
+    children?: ReactNode;
 }
 
-export function Modal({ children, isVisible, onBackdropClick }: IModalProps) {
+export function Modal({ children, viewModel }: IModalProps) {
     return (
         <>
-            <Backdrop isVisible={isVisible} onBackdropClick={onBackdropClick} />
-            <StyledModal aria-label="Modal" isVisible={isVisible}>
+            <Backdrop isVisible={viewModel.isCartVisible} onBackdropClick={viewModel.onCartHidden} />
+            <StyledModal aria-label="Modal" isVisible={viewModel.isCartVisible}>
                 {children}
             </StyledModal>
         </>
@@ -51,6 +51,4 @@ const StyledModal = styled.div<{ isVisible: boolean }>`
     ${breakpoint.s} {
         width: 95%;
     }
-
-
 `;

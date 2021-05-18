@@ -1,17 +1,14 @@
-import React, { useState, MouseEvent } from "react";
+import React from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import { observer } from "mobx-react-lite";
-import { useRouter } from "next/router";
+import { IHeaderViewModel } from "./HeaderViewModel";
 
 export interface IHeaderProps {
-    cartCount: number;
-    onCartClick: (event: MouseEvent<HTMLButtonElement>) => void;
+    viewModel: IHeaderViewModel;
 }
 
-export const Header = observer(({ cartCount, onCartClick }: IHeaderProps) => {
-    const router = useRouter();
-
+export const Header = observer(({ viewModel }: IHeaderProps) => {
     return (
         <StyledHeader>
             <Link href="/">
@@ -29,9 +26,9 @@ export const Header = observer(({ cartCount, onCartClick }: IHeaderProps) => {
                     </StyledLink>
                 </Link> */}
             </StyledMenuItems>
-            <StyledCartButton aria-label="Cart button" onClick={onCartClick}>
+            <StyledCartButton aria-label="Cart button" onClick={viewModel.onCartClick}>
                 <StyledCartSvg src="/icons/shoppingcart.svg" />
-                <StyledCartAmount>{cartCount}</StyledCartAmount>
+                <StyledCartAmount>{viewModel.cartCount}</StyledCartAmount>
             </StyledCartButton>
         </StyledHeader>
     );

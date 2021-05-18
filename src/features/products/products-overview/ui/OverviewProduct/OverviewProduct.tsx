@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React, { MouseEvent } from "react";
 import styled from "@emotion/styled";
-import { IProductViewModel } from "./OverviewProductViewModel";
+import { IOverviewProductViewModel } from "./OverviewProductViewModel";
 
 export interface IProductProps {
-    viewModel: IProductViewModel;
+    viewModel: IOverviewProductViewModel;
     onAddToCartClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 

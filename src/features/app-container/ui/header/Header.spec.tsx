@@ -1,20 +1,26 @@
 import React from "react";
 import { Header, IHeaderProps } from "./Header";
 import { fireEvent, render } from "@testing-library/react";
+import { deepmerge } from '../../../../utils-test/deepmerge';
+
 
 describe("Header", () => {
-    const createComponent = (overrides: Partial<IHeaderProps> = {}) => {
-        const props: IHeaderProps = {
-            cartCount: 0,
-            onCartClick: null,
-            ...overrides,
-        };
+    const createComponent = (overrides: DeepPartial<IHeaderProps> = {}) => {
+        const props = deepmerge(
+            {
+                viewModel: {
+                    cartCount: 0,
+                    onCartClick: null,
+                }
+            },
+            overrides
+        );
         return render(<Header {...props} />);
     };
 
     it("calls the callback when the cart button is clicked", () => {
         const onCartClick = jest.fn();
-        const { getByLabelText } = createComponent({ onCartClick });
+        const { getByLabelText } = createComponent({ viewModel: {onCartClick} });
 
         fireEvent.click(getByLabelText("Cart button"));
 
@@ -23,7 +29,7 @@ describe("Header", () => {
 
     it("renders a product amount", () => {
         const cartCount = 1337;
-        const { getByText } = createComponent({ cartCount });
+        const { getByText } = createComponent({ viewModel: {cartCount} });
 
         expect(getByText(cartCount)).toBeInTheDocument();
     });

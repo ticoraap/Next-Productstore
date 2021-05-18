@@ -1,8 +1,5 @@
-export interface ICartProduct {
-    id: number;
-    title: string;
-    subtitle: string;
-    imgurl: string;
-    price: number;
+import { IProduct } from "../../../products/products-overview/domain/model/product";
+
+export interface ICartProduct extends IProduct {
     amount: number;
 }

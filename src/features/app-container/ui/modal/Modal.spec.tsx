@@ -1,29 +1,34 @@
 import React from "react";
 import { Modal, IModalProps } from "./Modal";
 import { fireEvent, render } from "@testing-library/react";
+import { deepmerge } from "../../../../utils-test/deepmerge";
 
 describe("Modal", () => {
-    const createComponent = (overrides: Partial<IModalProps> = {}) => {
-        const props: IModalProps = {
-            children: <></>,
-            isVisible: false,
-            onBackdropClick: null,
-            ...overrides,
-        };
+    const createComponent = (overrides: DeepPartial<IModalProps> = {}) => {
+        const props = deepmerge(
+            {
+                viewModel:{
+                    isCartVisible: false,
+                    onCartHidden: null,
+                    
+                }
+            },
+            overrides
+        )
         return render(<Modal {...props} />);
     };
 
     it("click on backdrop is callback", () => {
-        const onBackdropClick = jest.fn();
-        const { getByLabelText } = createComponent({ onBackdropClick });
+        const onCartHidden = jest.fn();
+        const { getByLabelText } = createComponent({ viewModel: {onCartHidden} });
 
         fireEvent.click(getByLabelText("Backdrop"));
 
-        expect(onBackdropClick).toHaveBeenCalled();
+        expect(onCartHidden).toHaveBeenCalled();
     });
 
     it("shows the backdrop", () => {
-        const { getByLabelText } = createComponent({ isVisible: true });
+        const { getByLabelText } = createComponent({ viewModel: {isCartVisible: true} });
 
         expect(getByLabelText("Backdrop")).toHaveStyle({
             opacity: 1,
@@ -31,7 +36,7 @@ describe("Modal", () => {
     });
 
     it("hides the backdrop", () => {
-        const { getByLabelText } = createComponent({ isVisible: false });
+        const { getByLabelText } = createComponent({ viewModel: {isCartVisible: false} });
 
         expect(getByLabelText("Backdrop")).toHaveStyle({
             opacity: 0,
@@ -39,7 +44,7 @@ describe("Modal", () => {
     });
 
     it("shows the modal", () => {
-        const { getByLabelText } = createComponent({ isVisible: true });
+        const { getByLabelText } = createComponent({ viewModel: {isCartVisible: true} });
 
         expect(getByLabelText("Modal")).toHaveStyle({
             opacity: 1,
@@ -47,7 +52,7 @@ describe("Modal", () => {
     });
 
     it("enables click events when shown", () => {
-        const { getByLabelText } = createComponent({ isVisible: true });
+        const { getByLabelText } = createComponent({ viewModel: {isCartVisible: true} });
 
         expect(getByLabelText("Modal")).toHaveStyle({
             pointerEvents: "initial",
@@ -55,7 +60,7 @@ describe("Modal", () => {
     });
 
     it("hides the modal", () => {
-        const { getByLabelText } = createComponent({ isVisible: false });
+        const { getByLabelText } = createComponent({ viewModel: {isCartVisible: false} });
 
         expect(getByLabelText("Modal")).toHaveStyle({
             opacity: 0,
@@ -63,7 +68,7 @@ describe("Modal", () => {
     });
 
     it("disables click events when hidden", () => {
-        const { getByLabelText } = createComponent({ isVisible: false });
+        const { getByLabelText } = createComponent({ viewModel: {isCartVisible: false} });
 
         expect(getByLabelText("Modal")).toHaveStyle({
             pointerEvents: "none",

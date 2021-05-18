@@ -4,8 +4,9 @@ import styled from "@emotion/styled";
 import { MainLayout } from "../../../app-container/ui/layouts/main-layout/MainLayout";
 import { IProductViewModel } from './ProductViewModel';
 import { useState } from 'react';
-import useCartStore from '../../../../store/useCartStore';
+
 import { breakpoint } from '../../../../styles/theme/responsive/breakpoints';
+import { useCartStore } from '../../../cart/store/useCartStore';
 
 export interface IProductPageProps {
     viewModel: IProductViewModel

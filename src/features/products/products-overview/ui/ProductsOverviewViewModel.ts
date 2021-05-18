@@ -1,12 +1,12 @@
 import { IProduct } from "../domain/model/product";
 import {
     createProductViewModel,
-    IProductViewModel,
+    IOverviewProductViewModel,
 } from "./OverviewProduct/OverviewProductViewModel";
 
 export interface IProductsOverviewViewModel {
     productsTitle: string;
-    productViewModels: IProductViewModel[];
+    productViewModels: IOverviewProductViewModel[];
     products: IProduct[];
 }
 

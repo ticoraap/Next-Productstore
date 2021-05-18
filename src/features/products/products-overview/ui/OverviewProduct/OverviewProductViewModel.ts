@@ -1,7 +1,7 @@
 import { IProduct } from "../../domain/model/product";
 import { toCurrency } from "../../../../../utils/toCurrency";
 
-export interface IProductViewModel {
+export interface IOverviewProductViewModel {
     formattedPrice: string;
     pictureURL: string;
     pictureAltText: string;
@@ -12,7 +12,7 @@ export interface IProductViewModel {
     slug: string;
 }
 
-export function createProductViewModel(product: IProduct): IProductViewModel {
+export function createProductViewModel(product: IProduct): IOverviewProductViewModel {
     return {
         formattedPrice: toCurrency(product.price),
         pictureURL: product.imgurl,
