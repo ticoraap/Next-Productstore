@@ -1,18 +1,18 @@
 import React, { MouseEventHandler } from "react";
 import styled from "@emotion/styled";
 import { ZIndex } from "../../../../styles/globals/ZIndex";
+import { IBackdropViewModel } from "./BackdropViewmodel";
 
 export interface IBackdropProps {
-    isVisible: boolean;
-    onBackdropClick: MouseEventHandler<HTMLDivElement>;
+    viewModel: IBackdropViewModel
 }
 
-export function Backdrop({ isVisible, onBackdropClick }: IBackdropProps) {
+export function Backdrop({viewModel}: IBackdropProps) {
     return (
         <StyledBackdrop
             aria-label="Backdrop"
-            isVisible={isVisible}
-            onClick={onBackdropClick}
+            isVisible={viewModel.isBackdropVisible}
+            onClick={viewModel.hideCart}
         />
     );
 }

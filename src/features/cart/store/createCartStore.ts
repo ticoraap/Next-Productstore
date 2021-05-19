@@ -2,21 +2,18 @@ import { makeAutoObservable } from "mobx";
 import { ICartProduct } from "../domain/model/cartProduct";
 import { IProduct } from "../../products/products-overview/domain/model/product";
 
-export interface ICartStore {
-    products: ICartProduct[];
-    cartCount: number;
-}
+export type ICartStore = ReturnType<typeof createCartStore>
 
 export function createCartStore() {
     return makeAutoObservable({
         products: getPersistedStorage(),
-        get cartCount() {
+        get cartCount(): number {
             return this.products.reduce(
                 (total, product) => total + product.amount,
                 0
             );
         },
-        get totalAmount() {
+        get totalAmount(): number {
             return this.products.reduce(
                 (total: number, product: ICartProduct) =>
                     total + product.amount * product.price,

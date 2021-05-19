@@ -1,16 +1,16 @@
-
-import { ICartStore } from "../../../cart/store/createCartStore";
+import { createBackdropViewModel } from "./BackdropViewmodel"
 
 export type IModalViewModel = ReturnType<typeof createModalViewModel>
 
 export interface IModalViewModelProps {
     isCartVisible: boolean;
-    onCartHidden(): void;
+    hideCart(): void;
 }
 
-export function createModalViewModel({isCartVisible, onCartHidden}: IModalViewModelProps) {
+export function createModalViewModel({isCartVisible, hideCart}: IModalViewModelProps) {
     return {
         isCartVisible,
-        onCartHidden
+        hideCart,
+        backdropViewModel: createBackdropViewModel({isBackdropVisible: isCartVisible, hideCart})
     }
 }

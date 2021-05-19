@@ -1,91 +1,81 @@
-import { fireEvent, getByAltText, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import React from "react";
+import { deepmerge } from "../../../utils-test/deepmerge";
 import { ICartProduct } from "../domain/model/cartProduct";
 import { CartProduct, ICartProductProps } from "./CartProduct";
 
 describe("Product", () => {
-    const createComponent = ({
-        product,
-        ...rest
-    }: DeepPartial<ICartProductProps>) => {
-        const productOverrides = product as ICartProduct;
-
-        const props: ICartProductProps = {
-            incrementAmount: jest.fn() as any,
-            decrementAmount: jest.fn() as any,
-            product: {
-                id: 0,
-                title: "",
-                subtitle: "",
-                imgurl: "",
-                price: 0,
-                amount: 0,
-
-                ...productOverrides,
+    const createComponent = (overrides: DeepPartial<ICartProductProps>) => {
+        const props = deepmerge(
+            {
+                viewModel: { 
+                    title: "",
+                    subtitle: "",
+                    imgurl: "",
+                    altImageText: "",
+                    productAmount: 0,
+                    formattedProductTotalPrice: "",
+                    incrementProductAmount: null,
+                    decrementProductAmount: null,
+                }
             },
-
-            ...rest,
-        };
+            overrides
+        );
 
         return render(<CartProduct {...props} />);
     };
 
     it("increments the amount", () => {
-        const incrementAmount = jest.fn();
-        const { getByText } = createComponent({ incrementAmount });
+        const incrementProductAmount = jest.fn();
+        const { getByText } = createComponent({ viewModel: { incrementProductAmount }});
 
         fireEvent.click(getByText("+"));
 
-        expect(incrementAmount).toHaveBeenCalled();
+        expect(incrementProductAmount).toHaveBeenCalled();
     });
 
     it("decrements the amount", () => {
-        const decrementAmount = jest.fn();
-        const { getByText } = createComponent({ decrementAmount });
+        const decrementProductAmount = jest.fn();
+        const { getByText } = createComponent({ viewModel: { decrementProductAmount }});
 
         fireEvent.click(getByText("-"));
 
-        expect(decrementAmount).toHaveBeenCalled();
+        expect(decrementProductAmount).toHaveBeenCalled();
     });
 
     it("renders a title", () => {
         const product = { title: "Mount Everest" };
-        const { getByText } = createComponent({ product });
+        const { getByText } = createComponent({ viewModel: product });
 
         expect(getByText(product.title)).toBeInTheDocument();
     });
 
     it("renders a subtitle", () => {
         const product = { subtitle: "Kilimanjaro" };
-        const { getByText } = createComponent({ product });
+        const { getByText } = createComponent({ viewModel: product });
 
         expect(getByText(product.subtitle)).toBeInTheDocument();
     });
 
     it("renders a product image", () => {
-        const product = {
-            title: "Kachenjunga",
-            imgurl: "https://example.org/somephoto.jpg",
-        };
-        const { getByAltText } = createComponent({ product });
+        const altImageText = "Image of Kachenjunga";
+        const imgurl = "https://example.org/somephoto.jpg";
+        const { getByAltText } = createComponent({ viewModel: {altImageText, imgurl} });
 
-        expect(getByAltText("Image of Kachenjunga")).toHaveAttribute(
-            "src",
-            product.imgurl
-        );
+        expect(getByAltText(altImageText)).toHaveAttribute("src", imgurl);
     });
 
     it("renders a amount", () => {
-        const product = { amount: 9696 };
-        const { getByText } = createComponent({ product });
+        const product = { productAmount: 9696 };
+        const { getByText } = createComponent({ viewModel: product });
 
         expect(getByText("9696")).toBeInTheDocument();
     });
 
     it("renders a formated calculated price", () => {
-        const product = { amount: 3, price: 12.99 };
-        const { getByText } = createComponent({ product });
+        const formattedProductTotalPrice = "€ 38,97";
+        const { getByText } = createComponent({ viewModel: {formattedProductTotalPrice} });
 
-        expect(getByText("€ 38,97")).toBeInTheDocument();
+        expect(getByText(formattedProductTotalPrice)).toBeInTheDocument();
     });
 });

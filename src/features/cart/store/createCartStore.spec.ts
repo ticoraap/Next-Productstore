@@ -125,7 +125,6 @@ describe('CartStore', () => {
 		cartStore.addProduct(product1, 2)
 		cartStore.addProduct(product2, 2)
 
-        
 		expect(cartStore.totalAmount).toStrictEqual(totalprice);
 	});
 });

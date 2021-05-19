@@ -4,16 +4,18 @@ import { ICartProduct } from "../domain/model/cartProduct";
 
 import { CartProduct } from "./CartProduct";
 import { observer } from "mobx-react-lite";
-import { toCurrency } from "../../../utils/toCurrency";
-import { useCartStore } from "../store/useCartStore";
+import { cartStore } from "../store/CartStore";
+import { ICartViewModel } from "./CartViewModel";
 
-export const Cart = observer(() => {
-    const cartStore = useCartStore();
+export interface ICartProps{
+    viewModel: ICartViewModel
+}
 
+export const Cart = observer(({viewModel}: ICartProps) => {
     return (
         <StyledCart>
             <StyledTitle>Shopping cart</StyledTitle>
-            {cartStore.products.map((product: ICartProduct) => (
+            {viewModel.products.map((product: ICartProduct) => (
                 <CartProduct
                     key={product.id}
                     product={product}
@@ -29,7 +31,7 @@ export const Cart = observer(() => {
                     </StyledTotalNumber>
                 </StyledTotalProducts>
                 <StyledTotalPrice>
-                    {toCurrency(cartStore.totalAmount)}
+                    {viewModel.formattedTotalAmount}
                 </StyledTotalPrice>
             </StyledOverview>
         </StyledCart>

@@ -6,7 +6,8 @@ import { IProductViewModel } from './ProductViewModel';
 import { useState } from 'react';
 
 import { breakpoint } from '../../../../styles/theme/responsive/breakpoints';
-import { useCartStore } from '../../../cart/store/useCartStore';
+import { cartStore } from '../../../cart/store/CartStore';
+import { createMainlayoutViewModel } from '../../../app-container/ui/layouts/main-layout/MainLayoutViewModel';
 
 export interface IProductPageProps {
     viewModel: IProductViewModel
@@ -14,14 +15,13 @@ export interface IProductPageProps {
 
 export const ProductPage = ({viewModel}: IProductPageProps) => {
     const [amount, setAmount] = useState(1);
-    const cartStore = useCartStore();
 
     const onAddToCartClick = () => {
         cartStore.addProduct(viewModel.product, amount)
     }
 
     return (
-        <MainLayout>
+        <MainLayout viewModel={createMainlayoutViewModel({cartStore})}>
             <StyledProductPreview>
                 <StyledProductTitle>{viewModel.title}</StyledProductTitle>
                 <StyledProductSubtitle>

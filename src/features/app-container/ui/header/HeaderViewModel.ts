@@ -1,16 +1,15 @@
 import { ICartStore } from "../../../cart/store/createCartStore";
 
-
 export type IHeaderViewModel = ReturnType<typeof createHeaderViewModel>
 
 export interface IHeaderViewModelProps {
-    cart: ICartStore;
-    onCartClick(): void;
+    cartStore: ICartStore;
+    showCart(): void;
 }
 
-export function createHeaderViewModel({cart, onCartClick}: IHeaderViewModelProps){
+export function createHeaderViewModel({cartStore, showCart}: IHeaderViewModelProps){
     return {
-        cartCount: cart.cartCount,
-        onCartClick
+        cartCount: cartStore.cartCount,
+        showCart
     }
 }

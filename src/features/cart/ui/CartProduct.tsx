@@ -1,34 +1,31 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { ICartProduct } from "../domain/model/cartProduct";
 import { observer } from "mobx-react-lite";
-import { toCurrency } from "../../../utils/toCurrency";
+import { ICartProductViewModel } from "./CartProductViewModel";
 
 export interface ICartProductProps {
-    product: ICartProduct;
-    incrementAmount: (event: MouseEvent<HTMLButtonElement>) => void;
-    decrementAmount: (event: MouseEvent<HTMLButtonElement>) => void;
+    viewModel: ICartProductViewModel;
+
 }
 
-export const CartProduct = observer(
-    ({ product, incrementAmount, decrementAmount }: ICartProductProps) => {
+export const CartProduct = observer(({ viewModel }: ICartProductProps) => {
         return (
             <StyledCartProduct>
                 <StyledImage
-                    alt={`Image of ${product.title}`}
-                    src={product.imgurl}
+                    alt={viewModel.altImageText}
+                    src={viewModel.imgurl}
                 />
                 <StyledInfo>
-                    <StyledTitle>{product.title}</StyledTitle>
-                    <StyledSubTitle>{product.subtitle}</StyledSubTitle>
+                    <StyledTitle>{viewModel.title}</StyledTitle>
+                    <StyledSubTitle>{viewModel.subtitle}</StyledSubTitle>
                 </StyledInfo>
                 <StyledControls>
-                    <StyledButton onClick={decrementAmount}>-</StyledButton>
-                    <StyledAmount>{product.amount}</StyledAmount>
-                    <StyledButton onClick={incrementAmount}>+</StyledButton>
+                    <StyledButton onClick={viewModel.decrementProductAmount}>-</StyledButton>
+                    <StyledAmount>{viewModel.productAmount}</StyledAmount>
+                    <StyledButton onClick={viewModel.incrementProductAmount}>+</StyledButton>
                 </StyledControls>
                 <StyledPricing>
-                    {toCurrency(product.price * product.amount)}
+                    {viewModel.formattedProductTotalPrice}
                 </StyledPricing>
             </StyledCartProduct>
         );

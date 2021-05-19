@@ -13,7 +13,7 @@ export interface IModalProps {
 export function Modal({ children, viewModel }: IModalProps) {
     return (
         <>
-            <Backdrop isVisible={viewModel.isCartVisible} onBackdropClick={viewModel.onCartHidden} />
+            <Backdrop viewModel={viewModel.backdropViewModel} />
             <StyledModal aria-label="Modal" isVisible={viewModel.isCartVisible}>
                 {children}
             </StyledModal>

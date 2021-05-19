@@ -1,3 +1,5 @@
+import { ICartStore } from "../../../cart/store/createCartStore";
+
 import { IProduct } from "../domain/model/product";
 import {
     createProductViewModel,
@@ -8,10 +10,12 @@ export interface IProductsOverviewViewModel {
     productsTitle: string;
     productViewModels: IOverviewProductViewModel[];
     products: IProduct[];
+    cartStore: ICartStore;
 }
 
 export function createProductsOverviewViewModel(
-    products: IProduct[]
+    products: IProduct[],
+    cartStore: ICartStore
 ): IProductsOverviewViewModel {
     return {
         productsTitle: `${products.length} Products`,
@@ -19,5 +23,6 @@ export function createProductsOverviewViewModel(
             createProductViewModel(product)
         ),
         products,
+        cartStore,
     };
 }

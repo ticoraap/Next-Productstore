@@ -1,29 +1,34 @@
 import React from "react";
 import { Backdrop, IBackdropProps } from "./Backdrop";
-import { fireEvent, getByText, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
+import { deepmerge } from "../../../../utils-test/deepmerge";
 
 describe("Backdrop", () => {
-    const createComponent = (overrides: Partial<IBackdropProps> = {}) => {
-        const props: IBackdropProps = {
-            isVisible: false,
-            onBackdropClick: null,
-            ...overrides,
-        };
-        return render(<Backdrop {...(props as IBackdropProps)} />);
+    const createComponent = (overrides: DeepPartial<IBackdropProps> = {}) => {
+        const props = deepmerge(
+            {
+                viewModel: {
+                    isBackdropVisible: false,
+                    hideCart: jest.fn()
+                }
+            },
+            overrides
+        )
+        return render(<Backdrop {...props} />);
     };
 
     it("click on backdrop is callback", () => {
-        const onBackdropClick = jest.fn();
-        const { getByLabelText } = createComponent({ onBackdropClick });
+        const hideCart = jest.fn();
+        const { getByLabelText } = createComponent({ viewModel: { hideCart } });
 
         fireEvent.click(getByLabelText("Backdrop"));
 
-        expect(onBackdropClick).toHaveBeenCalled();
+        expect(hideCart).toHaveBeenCalled();
     });
 
     it("shows the backdrop", () => {
-        const isVisible = true;
-        const { getByLabelText } = createComponent({ isVisible });
+        const isBackdropVisible = true;
+        const { getByLabelText } = createComponent({ viewModel: { isBackdropVisible }});
 
         expect(getByLabelText("Backdrop")).toHaveStyle({
             opacity: 1,
@@ -31,8 +36,8 @@ describe("Backdrop", () => {
     });
 
     it("Enables click events when shown", () => {
-        const isVisible = true;
-        const { getByLabelText } = createComponent({ isVisible });
+        const isBackdropVisible = true;
+        const { getByLabelText } = createComponent({ viewModel: { isBackdropVisible }});
 
         expect(getByLabelText("Backdrop")).toHaveStyle({
             pointerEvents: "initial",
@@ -40,8 +45,8 @@ describe("Backdrop", () => {
     });
 
     it("hides the backdrop", () => {
-        const isVisible = false;
-        const { getByLabelText } = createComponent({ isVisible });
+        const isBackdropVisible = false;
+        const { getByLabelText } = createComponent({ viewModel: { isBackdropVisible }});
 
         expect(getByLabelText("Backdrop")).toHaveStyle({
             opacity: 0,
@@ -49,8 +54,8 @@ describe("Backdrop", () => {
     });
 
     it("disables click events when hidden", () => {
-        const isVisible = false;
-        const { getByLabelText } = createComponent({ isVisible });
+        const isBackdropVisible = false;
+        const { getByLabelText } = createComponent({ viewModel: { isBackdropVisible }});
 
         expect(getByLabelText("Backdrop")).toHaveStyle({
             pointerEvents: "none",

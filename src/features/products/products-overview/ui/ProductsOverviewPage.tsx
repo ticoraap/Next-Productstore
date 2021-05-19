@@ -5,16 +5,17 @@ import { OverviewProduct } from "./OverviewProduct/OverviewProduct";
 import { MainLayout } from "../../../app-container/ui/layouts/main-layout/MainLayout";
 import { breakpoint } from "../../../../styles/theme/responsive/breakpoints";
 import { IProductsOverviewViewModel } from "./ProductsOverviewViewModel";
-import { useCartStore } from "../../../cart/store/useCartStore";
+import { createMainlayoutViewModel } from "../../../app-container/ui/layouts/main-layout/MainLayoutViewModel";
+import { cartStore } from "../../../cart/store/CartStore";
 
 export interface IProductsOverviewPageProps {
     viewModel: IProductsOverviewViewModel
 }
 
 export const ProductsOverviewPage = ({ viewModel }: IProductsOverviewPageProps) => {
-    const cartStore = useCartStore();
+
     return (
-        <MainLayout>
+        <MainLayout viewModel={createMainlayoutViewModel({cartStore})}>
             <Title>{viewModel.productsTitle}</Title>
             <Products>
                 {viewModel.productViewModels.map((productViewModel) => (
@@ -22,7 +23,7 @@ export const ProductsOverviewPage = ({ viewModel }: IProductsOverviewPageProps) 
                         key={productViewModel.slug}
                         viewModel={productViewModel}
                         onAddToCartClick={() =>
-                            cartStore.addProduct(productViewModel.product)
+                            viewModel.cartStore.addProduct(productViewModel.product)
                         }
                     />
                 ))}

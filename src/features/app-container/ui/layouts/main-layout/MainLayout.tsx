@@ -6,23 +6,25 @@ import { Modal } from "../../modal/Modal";
 import { Cart } from "../../../../cart/ui/Cart";
 import { observer } from "mobx-react-lite";
 import { breakpoint } from "../../../../../styles/theme/responsive/breakpoints";
-import { useCartStore } from "../../../../cart/store/useCartStore";
+
 import { createHeaderViewModel } from "../../header/HeaderViewModel";
 import { createModalViewModel } from "../../modal/ModalViewModel";
+import { createCartViewModel } from "../../../../cart/ui/CartViewModel";
+import { IMainLayoutViewModel } from "./MainLayoutViewModel";
 
 export interface IMainLayoutProps{
+    viewModel: IMainLayoutViewModel
     children: ReactNode
 }
 
-export const MainLayout = observer(({ children }: IMainLayoutProps) => {
+export const MainLayout = observer(({ viewModel: { cartStore }, children }: IMainLayoutProps) => {
     const [isCartVisible, setCartVisible] = useState(false);
-    const cart = useCartStore();
-    
-    const onCartClick = () => {
+
+    const showCart = () => {
         setCartVisible(true)
     }
     
-    const onCartHidden = () => {
+    const hideCart = () => {
         setCartVisible(false)
     }
 
@@ -31,9 +33,9 @@ export const MainLayout = observer(({ children }: IMainLayoutProps) => {
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             </Head>
-            <Header viewModel={createHeaderViewModel({cart, onCartClick})}/>
-            <Modal viewModel={createModalViewModel({isCartVisible, onCartHidden})}>
-                <Cart />
+            <Header viewModel={createHeaderViewModel({cartStore, showCart})}/>
+            <Modal viewModel={createModalViewModel({isCartVisible, hideCart})}>
+                <Cart viewModel={createCartViewModel({cartStore})}/>
             </Modal>
             <StyledMain>{children}</StyledMain>
         </StyledMainLayout>

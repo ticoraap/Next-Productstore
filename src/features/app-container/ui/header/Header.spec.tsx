@@ -10,7 +10,7 @@ describe("Header", () => {
             {
                 viewModel: {
                     cartCount: 0,
-                    onCartClick: null,
+                    showCart: null,
                 }
             },
             overrides
@@ -19,17 +19,17 @@ describe("Header", () => {
     };
 
     it("calls the callback when the cart button is clicked", () => {
-        const onCartClick = jest.fn();
-        const { getByLabelText } = createComponent({ viewModel: {onCartClick} });
+        const showCart = jest.fn();
+        const { getByLabelText } = createComponent({ viewModel: { showCart } });
 
         fireEvent.click(getByLabelText("Cart button"));
 
-        expect(onCartClick).toHaveBeenCalled();
+        expect(showCart).toHaveBeenCalled();
     });
 
     it("renders a product amount", () => {
-        const cartCount = 1337;
-        const { getByText } = createComponent({ viewModel: {cartCount} });
+        const cartCount: number = 1337;
+        const { getByText } = createComponent({ viewModel: { cartCount } });
 
         expect(getByText(cartCount)).toBeInTheDocument();
     });
