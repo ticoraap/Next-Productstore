@@ -16,7 +16,7 @@ export const ProductsOverviewPage = ({ viewModel }: IProductsOverviewPageProps) 
             <Products>
                 {viewModel.overviewProductViewModels.map((overviewProductViewModel) => (
                     <OverviewProduct
-                        key={overviewProductViewModel.slug}
+                        key={overviewProductViewModel.key}
                         viewModel={overviewProductViewModel}
                     />
                 ))}

@@ -1,6 +1,6 @@
+import React from 'react';
 import { render } from '@testing-library/react';
 import { deepmerge } from '../../../../utils-test/deepmerge';
-import React from 'react';
 import { IProductPageProps, ProductPage } from './ProductPage';
 import { createCartStoreMock } from '../../../cart/domain/model/__mocks__/createCartStoreMock';
 

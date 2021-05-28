@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { ICartStore } from "../../../../cart/store/createCartStore"
 import { createCartViewModel } from "../../../../cart/ui/CartViewModel"
 import { createHeaderViewModel } from "../../header/HeaderViewModel"
-import { createModalViewModel } from "../../modal/ModalViewModel"
+import { createCartModalContentViewModel } from "../../modal/ModalViewModel"
 
 export type IMainLayoutViewModel = ReturnType<typeof createMainlayoutViewModel>
 
@@ -16,11 +16,10 @@ export interface IMainLayoutViewModelProps {
 
 export function createMainlayoutViewModel({cartStore, isCartModalVisible, setCartModalVisible, productCount, setProductCount} : IMainLayoutViewModelProps){
     return {
-        cartStore,
         productCount,
         setProductCount,
         headerViewModel: createHeaderViewModel({cartStore, setCartModalVisible}),
-        modalViewModel: createModalViewModel({isCartModalVisible, setCartModalVisible}),
+        modalViewModel: createCartModalContentViewModel({isCartModalVisible, setCartModalVisible}),
         cartViewModel: createCartViewModel({cartStore})
     }
 }

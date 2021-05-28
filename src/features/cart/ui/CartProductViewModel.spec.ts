@@ -3,11 +3,9 @@ import { ICartProduct } from "../domain/model/cartProduct";
 import { createCartProductViewModel } from "./CartProductViewModel";
 import { createCartStoreMock } from "../domain/model/__mocks__/createCartStoreMock";
 
-
 describe('CartProductViewModel', () => {
-
     const cartStore = createCartStoreMock({
-        totalProductAmount: jest.fn().mockReturnValue(44),
+        getTotalProductPrice: jest.fn().mockReturnValue(44),
     });
 
     const product: ICartProduct = {

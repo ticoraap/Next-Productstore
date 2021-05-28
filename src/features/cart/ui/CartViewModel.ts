@@ -10,9 +10,16 @@ export interface ICartViewModelProps {
 
 export function createCartViewModel({cartStore}: ICartViewModelProps){
     return {
-        formattedTotalAmount: toEuroFormat(cartStore.totalAmount),
-        cartProductViewModels: cartStore.products.map(product => {
-            return createCartProductViewModel({cartStore, product})
-        })
+        get formattedTotalAmount(){
+            return toEuroFormat(cartStore.getTotalCartPrice())
+        },
+        get cartProductViewModels(){
+            return cartStore.products.map(product => {
+                return createCartProductViewModel({cartStore, product})
+            })
+        },
+        get cartCount(){
+            return cartStore.getCartCount();
+        },
     }
 }

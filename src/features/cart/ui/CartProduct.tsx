@@ -5,7 +5,6 @@ import { ICartProductViewModel } from "./CartProductViewModel";
 
 export interface ICartProductProps {
     viewModel: ICartProductViewModel;
-
 }
 
 export const CartProduct = observer(({ viewModel }: ICartProductProps) => {

@@ -78,7 +78,7 @@ describe('CartStore', () => {
 		cartStore.addProduct(product1)
 		cartStore.addProduct(product2)
    
-		expect(cartStore.cartCount).toStrictEqual(2);
+		expect(cartStore.getCartCount()).toStrictEqual(2);
 	});
 
     it('decreases count of the store', () => {
@@ -92,7 +92,7 @@ describe('CartStore', () => {
 		cartStore.addProduct(product2)
 		cartStore.removeProduct(id1)
    
-		expect(cartStore.cartCount).toStrictEqual(1);
+		expect(cartStore.getCartCount()).toStrictEqual(1);
 	});
 
     it('calculates the totalammount of two of the same product', () => {
@@ -105,7 +105,7 @@ describe('CartStore', () => {
 		cartStore.addProduct(product)
 		cartStore.addProduct(product)
    
-		expect(cartStore.totalAmount).toStrictEqual(totalprice);
+		expect(cartStore.getTotalCartPrice()).toStrictEqual(totalprice);
 	});
 
     it('calculates the totalammount of each of two different products', () => {
@@ -126,6 +126,6 @@ describe('CartStore', () => {
 		cartStore.addProduct(product1, 2)
 		cartStore.addProduct(product2, 2)
 
-		expect(cartStore.totalAmount).toStrictEqual(totalprice);
+		expect(cartStore.getTotalCartPrice()).toStrictEqual(totalprice);
 	});
 });

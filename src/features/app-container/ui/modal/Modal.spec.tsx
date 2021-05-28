@@ -5,6 +5,10 @@ import { deepmerge } from "../../../../utils-test/deepmerge";
 
 describe("Modal", () => {
     const createComponent = (overrides: DeepPartial<IModalProps> = {}) => {
+
+        const modalrootElement = document.createElement('div')
+        modalrootElement.setAttribute('id', 'modal-root')
+
         const props = deepmerge(
             {
                 viewModel:{
@@ -19,7 +23,9 @@ describe("Modal", () => {
             },
             overrides
         )
-        return render(<Modal {...props} />);
+        return render(<Modal {...props} />, {
+            container: document.body.appendChild(modalrootElement)
+        });
     };
 
     it("click on backdrop is callback", () => {

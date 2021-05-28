@@ -7,20 +7,20 @@ export type ICartStore = ReturnType<typeof createCartStore>
 export function createCartStore() {
     return makeAutoObservable({
         products: getPersistedStorage(),
-        get cartCount(): number {
+        getCartCount(): number {
             return this.products.reduce(
                 (total, product) => total + product.amount,
                 0
             );
         },
-        get totalAmount(): number {
+        getTotalCartPrice(): number {
             return this.products.reduce(
                 (total: number, product: ICartProduct) =>
                     total + product.amount * product.price,
                 0
             );
         },
-        totalProductAmount(id: string): number {
+        getTotalProductPrice(id: string): number {
             const product = this.products.find((cartProduct) => cartProduct.id === id)
             return product.amount * product.price;
         },

@@ -1,13 +1,13 @@
+import React from "react";
 import Link from "next/link";
-import React, { MouseEvent } from "react";
 import styled from "@emotion/styled";
 import { IOverviewProductViewModel } from "./OverviewProductViewModel";
 
-export interface IProductProps {
+export interface IOverviewProductProps {
     viewModel: IOverviewProductViewModel;
 }
 
-export function OverviewProduct({ viewModel }: IProductProps) {
+export function OverviewProduct({ viewModel }: IOverviewProductProps) {
     return (
         <StyledProduct>
             <Link href={viewModel.productURL}>

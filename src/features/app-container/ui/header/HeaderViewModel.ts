@@ -10,7 +10,9 @@ export interface IHeaderViewModelProps {
 
 export function createHeaderViewModel({cartStore, setCartModalVisible}: IHeaderViewModelProps){
     return {
-        cartCount: cartStore.cartCount,
+        get cartCount(){
+            return cartStore.getCartCount();
+        },
         onCartClick: () => setCartModalVisible(true)
     }
 }

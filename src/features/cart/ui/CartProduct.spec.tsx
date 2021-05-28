@@ -1,7 +1,6 @@
-import { fireEvent, render } from "@testing-library/react";
 import React from "react";
+import { fireEvent, render } from "@testing-library/react";
 import { deepmerge } from "../../../utils-test/deepmerge";
-import { ICartProduct } from "../domain/model/cartProduct";
 import { CartProduct, ICartProductProps } from "./CartProduct";
 
 describe("Product", () => {
@@ -9,6 +8,7 @@ describe("Product", () => {
         const props = deepmerge(
             {
                 viewModel: { 
+                    id: "",
                     title: "",
                     subtitle: "",
                     imgurl: "",

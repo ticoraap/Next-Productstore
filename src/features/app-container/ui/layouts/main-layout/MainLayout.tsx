@@ -2,8 +2,6 @@ import React, { ReactNode, useState } from "react";
 import styled from "@emotion/styled";
 import { Header } from "../../../../app-container/ui/header/Header";
 import { Modal } from "../../modal/Modal";
-import { ModalPortal } from "../../modal/ModalPortal";
-
 import { Cart } from "../../../../cart/ui/Cart";
 import { observer } from "mobx-react-lite";
 import { breakpoint } from "../../../../../styles/theme/responsive/breakpoints";
@@ -18,12 +16,9 @@ export const MainLayout = observer(({ viewModel, children }: IMainLayoutProps) =
     return (
         <StyledMainLayout>
             <Header viewModel={viewModel.headerViewModel}/>
-            <ModalPortal>
-                <Modal viewModel={viewModel.modalViewModel}>
-                    <Cart viewModel={viewModel.cartViewModel}/>
-                </Modal>
-
-            </ModalPortal>
+            <Modal viewModel={viewModel.modalViewModel}>
+                <Cart viewModel={viewModel.cartViewModel}/>
+            </Modal>
             <StyledMain>{children}</StyledMain>
         </StyledMainLayout>
     );

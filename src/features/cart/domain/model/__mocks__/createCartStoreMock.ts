@@ -9,9 +9,9 @@ type ICartStoreMockOverrides = Partial<jest.Mocked<ICartStore>>;
 export function createCartStoreMock(overrides: ICartStoreMockOverrides = {}) {
 	const mock: jest.Mocked<ICartStore> = {
 		products: observable<ICartProduct>([]),
-        cartCount: 0,
-        totalAmount: 0,
-        totalProductAmount: jest.fn(),
+        getCartCount: jest.fn(),
+        getTotalCartPrice: jest.fn(),
+        getTotalProductPrice: jest.fn(),
         isInCart: jest.fn(),
         removeProduct: jest.fn(),
         addProduct: jest.fn(),

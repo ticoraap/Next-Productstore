@@ -5,24 +5,28 @@ import styled from "@emotion/styled";
 import { Backdrop } from "./Backdrop";
 import { breakpoint } from "../../../../styles/theme/responsive/breakpoints";
 import { ZIndex } from "../../../../styles/globals/ZIndex";
-import { IModalViewModel } from "./ModalViewModel";
+import { ICartModalContentViewModel } from "./ModalViewModel";
 
 export interface IModalProps {
-    viewModel: IModalViewModel;
+    viewModel: ICartModalContentViewModel;
     children?: ReactNode;
 }
 
 export function Modal({ children, viewModel }: IModalProps) {
     
+    if (typeof window === 'undefined'){
+        return null
+    }
 
-    return (
+    return ReactDOM.createPortal(
         <>
             <Backdrop viewModel={viewModel.backdropViewModel} />
             <StyledModal aria-label="Modal" isVisible={viewModel.isCartVisible}>
                 {children}
             </StyledModal>
-        </>
-    );
+        </>,
+        document.getElementById('modal-root')
+    )
 }
 
 const StyledModal = styled.div<{ isVisible: boolean }>`

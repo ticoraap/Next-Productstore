@@ -1,30 +1,20 @@
-import { render } from "@testing-library/react";
 import React from "react";
+import { render } from "@testing-library/react";
 import { deepmerge } from "../../../../../utils-test/deepmerge";
-import { IProductProps, OverviewProduct } from "./OverviewProduct";
+import { IOverviewProductProps, OverviewProduct } from "./OverviewProduct";
 
 describe("Product", () => {
-    const createComponent = (overrides: DeepPartial<IProductProps>) => {
+    const createComponent = (overrides: DeepPartial<IOverviewProductProps>) => {
         const props = deepmerge(
             {
-                onAddToCartClick: null,
                 viewModel: {
+                    title: "",
+                    subtitle: "",
                     formattedPrice: "",
                     pictureURL: "",
                     pictureAltText: "",
                     productURL: "",
-                    product: {
-                        id: "",
-                        slug: "",
-                        title: "",
-                        subtitle: "",
-                        description: "",
-                        imgurl: "",
-                        price: 0,
-                    },
-                    title: "",
-                    subtitle: "",
-                    slug: "",
+                    onClick: jest.fn(),
                 },
             },
             overrides
@@ -59,4 +49,6 @@ describe("Product", () => {
             pictureURL
         );
     });
+
+    //TODO make a test for the productURL and the onClick
 });

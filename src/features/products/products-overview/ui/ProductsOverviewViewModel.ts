@@ -20,7 +20,7 @@ export function createProductsOverviewViewModel(
     return {
         productsTitle: `${products.length} Products`,
         overviewProductViewModels: products.map((product) =>
-            createOverviewProductViewModel(product, cartStore)
+            createOverviewProductViewModel({product, cartStore})
         ),
         products,
         cartStore,

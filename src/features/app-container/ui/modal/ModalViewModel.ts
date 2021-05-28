@@ -1,14 +1,14 @@
 import { createBackdropViewModel } from "./BackdropViewmodel"
 import { Dispatch, SetStateAction } from "react"
 
-export type IModalViewModel = ReturnType<typeof createModalViewModel>
+export type ICartModalContentViewModel = ReturnType<typeof createCartModalContentViewModel>
 
-export interface IModalViewModelProps {
+export interface ICartModalContentViewModelProps {
     isCartModalVisible: boolean;
     setCartModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-export function createModalViewModel({isCartModalVisible, setCartModalVisible}: IModalViewModelProps) {
+export function createCartModalContentViewModel({isCartModalVisible, setCartModalVisible}: ICartModalContentViewModelProps) {
     return {
         isCartVisible: isCartModalVisible,
         hideCart: () => setCartModalVisible(false),

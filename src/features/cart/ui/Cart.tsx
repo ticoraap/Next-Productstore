@@ -3,7 +3,6 @@ import React from "react";
 
 import { CartProduct } from "./CartProduct";
 import { observer } from "mobx-react-lite";
-import { cartStore } from "../store/CartStore";
 import { ICartViewModel } from "./CartViewModel";
 
 export interface ICartProps{
@@ -24,7 +23,7 @@ export const Cart = observer(({viewModel}: ICartProps) => {
                 <StyledTotalProducts>
                     Totaal artikelen
                     <StyledTotalNumber>
-                        ({cartStore.cartCount})
+                        ({viewModel.cartCount})
                     </StyledTotalNumber>
                 </StyledTotalProducts>
                 <StyledTotalPrice>

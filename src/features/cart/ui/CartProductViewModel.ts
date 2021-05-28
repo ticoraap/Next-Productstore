@@ -16,8 +16,12 @@ export function createCartProductViewModel({cartStore, product}: ICartProductVie
         subtitle: product.subtitle,
         imgurl: product.imgurl,
         altImageText: `Image of ${product.title}`,
-        productAmount: product.amount,
-        formattedProductTotalPrice: toEuroFormat(cartStore.totalProductAmount(product.id)),
+        get productAmount(){
+            return product.amount
+        },
+        get formattedProductTotalPrice(){ 
+            return toEuroFormat(cartStore.getTotalProductPrice(product.id)) 
+        },
         incrementProductAmount: () => cartStore.incrementAmount(product),
         decrementProductAmount: () => cartStore.decrementAmount(product),
     }
