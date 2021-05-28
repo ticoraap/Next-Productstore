@@ -1,5 +1,6 @@
 import { IProduct } from "../../domain/model/product";
-import { toCurrency } from "../../../../../utils/toCurrency";
+import { toEuroFormat } from "../../../../../utils/CurrencyFormat";
+import { ICartStore } from "../../../../cart/store/createCartStore";
 
 export interface IOverviewProductViewModel {
     formattedPrice: string;
@@ -10,11 +11,12 @@ export interface IOverviewProductViewModel {
     title: string;
     subtitle: string;
     slug: string;
+    onClick: () => void;
 }
 
-export function createProductViewModel(product: IProduct): IOverviewProductViewModel {
+export function createOverviewProductViewModel(product: IProduct, cartStore: ICartStore): IOverviewProductViewModel {
     return {
-        formattedPrice: toCurrency(product.price),
+        formattedPrice: toEuroFormat(product.price),
         pictureURL: product.imgurl,
         pictureAltText: `Image of ${product.title}`,
         productURL: `/product/${product.slug}`,
@@ -22,5 +24,6 @@ export function createProductViewModel(product: IProduct): IOverviewProductViewM
         subtitle: product.subtitle,
         product: product,
         slug: product.slug,
+        onClick: () => cartStore.addProduct(product)
     };
 }

@@ -1,27 +1,22 @@
 import React from 'react';
 import styled from "@emotion/styled";
 
-import { MainLayout } from "../../../app-container/ui/layouts/main-layout/MainLayout";
-import { IProductViewModel } from './ProductViewModel';
-import { useState } from 'react';
-
+import { IProductPageViewModel } from './ProductPageViewModel';
+import { useEffect } from 'react';
 import { breakpoint } from '../../../../styles/theme/responsive/breakpoints';
-import { cartStore } from '../../../cart/store/CartStore';
-import { createMainlayoutViewModel } from '../../../app-container/ui/layouts/main-layout/MainLayoutViewModel';
 
 export interface IProductPageProps {
-    viewModel: IProductViewModel
+    viewModel: IProductPageViewModel
 }
 
 export const ProductPage = ({viewModel}: IProductPageProps) => {
-    const [amount, setAmount] = useState(1);
 
-    const onAddToCartClick = () => {
-        cartStore.addProduct(viewModel.product, amount)
-    }
+    useEffect(() => {
+        viewModel.onResetCount()
+    },[])
 
     return (
-        <MainLayout viewModel={createMainlayoutViewModel({cartStore})}>
+        <>
             <StyledProductPreview>
                 <StyledProductTitle>{viewModel.title}</StyledProductTitle>
                 <StyledProductSubtitle>
@@ -37,15 +32,15 @@ export const ProductPage = ({viewModel}: IProductPageProps) => {
                     <StyledPriceAndControls>
                         <StyledPrice>{viewModel.formattedPrice}</StyledPrice>
                         <StyledControls>
-                            <StyledMinButton onClick={() => setAmount( amount > 1 ? amount -1 : 1)}>-</StyledMinButton>
-                            <StyledAmount>{amount}</StyledAmount>
-                            <StyledPlusButton onClick={() => setAmount(amount +1)}>+</StyledPlusButton>
-                            <StyledAddToCartButton onClick={onAddToCartClick}>Add to cart</StyledAddToCartButton>
+                            <StyledMinButton onClick={viewModel.onDecrement}>-</StyledMinButton>
+                            <StyledAmount>{viewModel.productCount}</StyledAmount>
+                            <StyledPlusButton onClick={viewModel.onIncrement}>+</StyledPlusButton>
+                            <StyledAddToCartButton onClick={viewModel.onAddToCart}>Add to cart</StyledAddToCartButton>
                         </StyledControls>
                     </StyledPriceAndControls>
                 </StyledProductBody>
             </StyledProductPreview>
-        </MainLayout>
+        </>
     )
 }
 

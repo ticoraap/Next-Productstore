@@ -1,4 +1,6 @@
 import React, { ReactNode } from "react";
+import ReactDOM from "react-dom";
+
 import styled from "@emotion/styled";
 import { Backdrop } from "./Backdrop";
 import { breakpoint } from "../../../../styles/theme/responsive/breakpoints";
@@ -11,6 +13,8 @@ export interface IModalProps {
 }
 
 export function Modal({ children, viewModel }: IModalProps) {
+    
+
     return (
         <>
             <Backdrop viewModel={viewModel.backdropViewModel} />

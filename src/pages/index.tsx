@@ -3,12 +3,16 @@ import { ProductsOverviewPage } from "../features/products/products-overview/ui/
 import { createProductsOverviewViewModel } from "../features/products/products-overview/ui/ProductsOverviewViewModel";
 import { getProducts } from "../features/products/products-overview/domain/use-cases";
 import { cartStore } from "../features/cart/store/CartStore";
+import { MainLayout } from "../features/app-container/ui/layouts/main-layout/MainLayout";
 
-export default function Index({ products }) {
+export default function Index({ products, mainLayoutViewModel }) {
     return (
-        <ProductsOverviewPage
-            viewModel={createProductsOverviewViewModel(products, cartStore)}
-        />
+        <MainLayout viewModel={mainLayoutViewModel}>
+            <ProductsOverviewPage
+                viewModel={createProductsOverviewViewModel(products, cartStore)}
+            />
+
+        </MainLayout>
     );
 }
 

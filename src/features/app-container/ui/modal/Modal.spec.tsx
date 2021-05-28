@@ -11,8 +11,8 @@ describe("Modal", () => {
                     isCartVisible: false,
                     hideCart: null,
                     backdropViewModel: {
-                        isBackdropVisible: false,
-                        hideCart: null
+                        isVisible: false,
+                        onBackdropClick: null
                     }
                     
                 }
@@ -23,16 +23,16 @@ describe("Modal", () => {
     };
 
     it("click on backdrop is callback", () => {
-        const hideCart = jest.fn();
-        const { getByLabelText } = createComponent({ viewModel: { backdropViewModel: { hideCart }} });
+        const onBackdropClick = jest.fn();
+        const { getByLabelText } = createComponent({ viewModel: { backdropViewModel: { onBackdropClick }} });
 
         fireEvent.click(getByLabelText("Backdrop"));
 
-        expect(hideCart).toHaveBeenCalled();
+        expect(onBackdropClick).toHaveBeenCalled();
     });
 
     it("shows the backdrop", () => {
-        const { getByLabelText } = createComponent({ viewModel: { backdropViewModel: { isBackdropVisible: true }} });
+        const { getByLabelText } = createComponent({ viewModel: { backdropViewModel: { isVisible: true }} });
 
         expect(getByLabelText("Backdrop")).toHaveStyle({
             opacity: 1,

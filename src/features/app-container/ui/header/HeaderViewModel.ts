@@ -1,15 +1,16 @@
 import { ICartStore } from "../../../cart/store/createCartStore";
+import { Dispatch, SetStateAction } from "react"
 
 export type IHeaderViewModel = ReturnType<typeof createHeaderViewModel>
 
 export interface IHeaderViewModelProps {
     cartStore: ICartStore;
-    showCart(): void;
+    setCartModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-export function createHeaderViewModel({cartStore, showCart}: IHeaderViewModelProps){
+export function createHeaderViewModel({cartStore, setCartModalVisible}: IHeaderViewModelProps){
     return {
         cartCount: cartStore.cartCount,
-        showCart
+        onCartClick: () => setCartModalVisible(true)
     }
 }

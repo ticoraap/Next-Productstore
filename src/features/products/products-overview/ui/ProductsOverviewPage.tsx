@@ -2,33 +2,26 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import { OverviewProduct } from "./OverviewProduct/OverviewProduct";
-import { MainLayout } from "../../../app-container/ui/layouts/main-layout/MainLayout";
 import { breakpoint } from "../../../../styles/theme/responsive/breakpoints";
 import { IProductsOverviewViewModel } from "./ProductsOverviewViewModel";
-import { createMainlayoutViewModel } from "../../../app-container/ui/layouts/main-layout/MainLayoutViewModel";
-import { cartStore } from "../../../cart/store/CartStore";
 
 export interface IProductsOverviewPageProps {
     viewModel: IProductsOverviewViewModel
 }
 
 export const ProductsOverviewPage = ({ viewModel }: IProductsOverviewPageProps) => {
-
     return (
-        <MainLayout viewModel={createMainlayoutViewModel({cartStore})}>
+        <> 
             <Title>{viewModel.productsTitle}</Title>
             <Products>
-                {viewModel.productViewModels.map((productViewModel) => (
+                {viewModel.overviewProductViewModels.map((overviewProductViewModel) => (
                     <OverviewProduct
-                        key={productViewModel.slug}
-                        viewModel={productViewModel}
-                        onAddToCartClick={() =>
-                            viewModel.cartStore.addProduct(productViewModel.product)
-                        }
+                        key={overviewProductViewModel.slug}
+                        viewModel={overviewProductViewModel}
                     />
                 ))}
             </Products>
-        </MainLayout>
+        </>
     );
 };
 

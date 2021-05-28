@@ -5,10 +5,9 @@ import { IOverviewProductViewModel } from "./OverviewProductViewModel";
 
 export interface IProductProps {
     viewModel: IOverviewProductViewModel;
-    onAddToCartClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function OverviewProduct({ viewModel, onAddToCartClick }: IProductProps) {
+export function OverviewProduct({ viewModel }: IProductProps) {
     return (
         <StyledProduct>
             <Link href={viewModel.productURL}>
@@ -25,7 +24,7 @@ export function OverviewProduct({ viewModel, onAddToCartClick }: IProductProps) 
                 </StyledProductInfo>
                 <StyledPriceButton>
                     <StyledPrice>{viewModel.formattedPrice}</StyledPrice>
-                    <StyledAddButon onClick={onAddToCartClick}>
+                    <StyledAddButon onClick={viewModel.onClick}>
                         ADD
                     </StyledAddButon>
                 </StyledPriceButton>

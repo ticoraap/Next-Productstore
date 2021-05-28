@@ -20,6 +20,10 @@ export function createCartStore() {
                 0
             );
         },
+        totalProductAmount(id: string): number {
+            const product = this.products.find((cartProduct) => cartProduct.id === id)
+            return product.amount * product.price;
+        },
         isInCart(id: string) {
             return !!this.products.find((cartProduct) => cartProduct.id === id);
         },

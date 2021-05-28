@@ -26,7 +26,7 @@ export const Header = observer(({ viewModel }: IHeaderProps) => {
                     </StyledLink>
                 </Link> */}
             </StyledMenuItems>
-            <StyledCartButton aria-label="Cart button" onClick={viewModel.showCart}>
+            <StyledCartButton aria-label="Cart button" onClick={viewModel.onCartClick}>
                 <StyledCartSvg src="/icons/shoppingcart.svg" />
                 <StyledCartAmount>{viewModel.cartCount}</StyledCartAmount>
             </StyledCartButton>

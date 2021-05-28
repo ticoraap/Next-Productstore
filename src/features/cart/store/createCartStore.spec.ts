@@ -113,9 +113,10 @@ describe('CartStore', () => {
 
 		const id1 = "MACBOOK";
 		const price1 = 1200.70
+        
         const id2 = "chromebook";
-
 		const price2 = 299.99
+
         const totalprice = 3001.38
 
 

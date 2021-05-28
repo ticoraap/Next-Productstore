@@ -2,10 +2,12 @@ import { render } from '@testing-library/react';
 import { deepmerge } from '../../../../utils-test/deepmerge';
 import React from 'react';
 import { IProductPageProps, ProductPage } from './ProductPage';
+import { createCartStoreMock } from '../../../cart/domain/model/__mocks__/createCartStoreMock';
 
 
 describe('ProductPage', () => {
     const createComponent = (overrides: DeepPartial<IProductPageProps>) => {
+        const cartStore = createCartStoreMock();
         const props = deepmerge(
             {
                 viewModel: {
@@ -15,15 +17,11 @@ describe('ProductPage', () => {
                     imageUrl: "",
                     imageAltText: "",
                     formattedPrice: "",
-                    product: {
-                        id: "",
-                        title: "",
-                        subtitle: "",
-                        description: "",
-                        imgurl: "",
-                        price: 0,
-                        slug: "",
-                    }
+                    productCount: 0,
+                    onIncrement: jest.fn(),
+                    onDecrement: jest.fn(),
+                    onAddToCart: jest.fn(),
+                    onResetCount: jest.fn(),
                 }
             },
             overrides

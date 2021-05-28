@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { ICartProduct } from "../domain/model/cartProduct";
 
 import { CartProduct } from "./CartProduct";
 import { observer } from "mobx-react-lite";
@@ -15,12 +14,10 @@ export const Cart = observer(({viewModel}: ICartProps) => {
     return (
         <StyledCart>
             <StyledTitle>Shopping cart</StyledTitle>
-            {viewModel.products.map((product: ICartProduct) => (
+            {viewModel.cartProductViewModels.map(cartProductViewModel => (
                 <CartProduct
-                    key={product.id}
-                    product={product}
-                    incrementAmount={() => cartStore.incrementAmount(product)}
-                    decrementAmount={() => cartStore.decrementAmount(product)}
+                    key={cartProductViewModel.id}
+                    viewModel={cartProductViewModel}
                 />
             ))}
             <StyledOverview>

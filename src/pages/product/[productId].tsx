@@ -1,12 +1,27 @@
 import React from "react";
+import { MainLayout } from "../../features/app-container/ui/layouts/main-layout/MainLayout";
+import { IMainLayoutViewModel } from "../../features/app-container/ui/layouts/main-layout/MainLayoutViewModel";
+import { cartStore } from "../../features/cart/store/CartStore";
 import { getProduct, getProductsSlugs } from "../../features/products/product/domain/use-cases";
-
 import { ProductPage } from '../../features/products/product/ui/ProductPage'
-import { createProductViewModel } from '../../features/products/product/ui/ProductViewModel'
+import { createProductPageViewModel } from '../../features/products/product/ui/ProductPageViewModel'
+import { IProduct } from "../../features/products/products-overview/domain/model/product";
 
-export default function Index({product}) {
+export interface IProductNextPageProps {
+    product: IProduct;
+    mainLayoutViewModel: IMainLayoutViewModel;
+}
+
+export default function Index({product, mainLayoutViewModel}: IProductNextPageProps) {
     return (
-        <ProductPage viewModel={createProductViewModel(product)} />
+        <MainLayout viewModel={mainLayoutViewModel}>
+            <ProductPage viewModel={createProductPageViewModel({
+                product, 
+                cartStore, 
+                productCount: mainLayoutViewModel.productCount,
+                setProductCount: mainLayoutViewModel.setProductCount
+                })} />
+        </MainLayout>
     );
 }
 

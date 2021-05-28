@@ -11,8 +11,8 @@ export function Backdrop({viewModel}: IBackdropProps) {
     return (
         <StyledBackdrop
             aria-label="Backdrop"
-            isVisible={viewModel.isBackdropVisible}
-            onClick={viewModel.hideCart}
+            isVisible={viewModel.isVisible}
+            onClick={viewModel.onBackdropClick}
         />
     );
 }
