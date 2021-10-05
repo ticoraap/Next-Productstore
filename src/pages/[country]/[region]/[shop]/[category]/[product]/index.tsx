@@ -1,13 +1,19 @@
 import { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import React from "react";
 import { MainLayout } from "../../../../../../features/app-container/ui/layouts/main-layout/MainLayout";
+import { IMainLayoutViewModel } from "../../../../../../features/app-container/ui/layouts/main-layout/MainLayoutViewModel";
 import { cartStore } from "../../../../../../features/cart/store/CartStore";
+import { IProduct } from "../../../../../../features/products/product/domain/model/IProduct";
 
 import { getProductPathSlugs, getProduct } from "../../../../../../features/products/product/domain/use-cases";
 import { ProductPage } from "../../../../../../features/products/product/ui/ProductPage";
 import { createProductPageViewModel } from "../../../../../../features/products/product/ui/ProductPageViewModel";
 import { removeUndefined } from "../../../../../../features/shared/utils/removeUndefined";
-import { IProductNextPageProps } from "../../../../../product/[productId]";
+
+export interface IProductNextPageProps {
+    product: IProduct;
+    mainLayoutViewModel: IMainLayoutViewModel;
+}
 
 export default function Index({ product, mainLayoutViewModel }: IProductNextPageProps) {
 	return (
