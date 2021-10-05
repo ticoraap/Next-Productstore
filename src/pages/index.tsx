@@ -1,27 +1,38 @@
 import React from "react";
-import { ProductsOverviewPage } from "../features/products/products-overview/ui/ProductsOverviewPage";
-import { createProductsOverviewViewModel } from "../features/products/products-overview/ui/ProductsOverviewViewModel";
-import { getProducts } from "../features/products/products-overview/domain/use-cases";
-import { cartStore } from "../features/cart/store/CartStore";
 import { MainLayout } from "../features/app-container/ui/layouts/main-layout/MainLayout";
+import { IMainLayoutViewModel } from "../features/app-container/ui/layouts/main-layout/MainLayoutViewModel";
+import { ICountry } from "../features/country/domain/model/ICountry";
+import { getAllCountries } from "../features/country/domain/use-cases";
+import { HomePage } from "../features/home/ui/HomePage";
+import { createHomePageViewModel } from "../features/home/ui/HomePageViewModel";
+import { removeUndefined } from "../features/shared/utils/removeUndefined";
 
-export default function Index({ products, mainLayoutViewModel }) {
+
+export interface IIndexNextPageProps {
+    mainLayoutViewModel: IMainLayoutViewModel;
+    countries: ICountry[];
+}
+
+export default function Index({ countries, mainLayoutViewModel }: IIndexNextPageProps) {
     return (
         <MainLayout viewModel={mainLayoutViewModel}>
-            <ProductsOverviewPage
-                viewModel={createProductsOverviewViewModel(products, cartStore)}
-            />
-
+            <HomePage viewModel={createHomePageViewModel({ countries })}></HomePage>
         </MainLayout>
     );
 }
 
 export async function getStaticProps() {
-    const products = await getProducts();
+    const countries = await getAllCountries()
+
+    if (!getAllCountries) {
+        return { notFound: true };
+    }
+
+    const props = removeUndefined({ countries });
+
+    if (!props) return { notFound: true };
 
     return {
-        props: {
-            products,
-        },
+        props,
     };
 }

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { toEuroFormat } from "../../../../utils/CurrencyFormat";
 import { ICartStore } from "../../../cart/store/createCartStore";
-import { IProduct } from "../../products-overview/domain/model/product";
+import { IProduct } from "../domain/model/IProduct";
 
 export type IProductPageViewModel = ReturnType<typeof createProductPageViewModel>
 

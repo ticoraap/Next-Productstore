@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { ICartProduct } from "../domain/model/cartProduct";
-import { IProduct } from "../../products/products-overview/domain/model/product";
+import { IProduct } from "../../products/product/domain/model/IProduct";
 
 export type ICartStore = ReturnType<typeof createCartStore>
 
@@ -68,7 +68,7 @@ export function createCartStore() {
 function getPersistedStorage(): ICartProduct[] {
     if (!process.browser) return [];
 
-    const storage = localStorage.getItem("cart");
+    const storage = localStorage.getItem("nextProductStoreCart");
     if (storage) return JSON.parse(storage) as ICartProduct[];
 
     return [];
@@ -76,7 +76,7 @@ function getPersistedStorage(): ICartProduct[] {
 
 function setPersistedStorage(cart: ICartProduct[]) {
     if (!process.browser) return;
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("nextProductStoreCart", JSON.stringify(cart));
 }
 
 

@@ -1,5 +1,6 @@
 import { createClient } from "contentful";
-import { IContentApiConfig } from "../../../../config/getContentApiConfig";
+import { IContentApiConfig } from "../config/getContentApiConfig";
+import { ISearchParams } from "../features/shared/domain/ISearchParams";
 import { ContentType } from "./constants/ContentType";
 
 interface IQuery extends Partial<Record<string, string | number>> {
@@ -30,9 +31,17 @@ export function createContentApi(config: IContentApiConfig) {
         return contentful.getEntry(id);
     }
 
-    function getEntriesByType(contentType: ContentType) {
+    function getEntriesByType(contentType: ContentType, searchParams: ISearchParams = {}) {
         return contentful
-            .getEntries({ content_type: contentType })
+            .getEntries({ content_type: contentType, ...searchParams })
+            .then((response: any) => {
+                return response.items.length ? response.items : undefined;
+            });
+    }
+    
+    function getEntriesByTypeThatLinkToEntry(entryId: string, contentType: ContentType, searchParams: ISearchParams = {}) {
+        return contentful
+            .getEntries({ 'sys.contentType.sys.id': contentType, links_to_entry: entryId, ...searchParams })
             .then((response: any) => {
                 return response.items.length ? response.items : undefined;
             });
@@ -42,5 +51,5 @@ export function createContentApi(config: IContentApiConfig) {
         return getEntry<T>(contentType, { "fields.slug": slug });
     }
 
-    return Object.freeze({ getEntryById, getEntriesByType, getEntryBySlug });
+    return Object.freeze({ getEntryById, getEntriesByType, getEntriesByTypeThatLinkToEntry, getEntryBySlug });
 }

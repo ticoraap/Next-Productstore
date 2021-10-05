@@ -1,28 +1,35 @@
 import { ICartStore } from "../../../cart/store/createCartStore";
-
-import { IProduct } from "../domain/model/product";
+import { ICategory } from "../../../category/domain/model/ICategory";
+import { ICategoryPathSlugs } from "../../../shared/domain/ICategoryPathSlugs";
+import { IProduct } from "../../product/domain/model/IProduct";
 import {
     createOverviewProductViewModel,
-    IOverviewProductViewModel,
+
 } from "./OverviewProduct/OverviewProductViewModel";
 
-export interface IProductsOverviewViewModel {
-    productsTitle: string;
-    overviewProductViewModels: IOverviewProductViewModel[];
-    products: IProduct[];
-    cartStore: ICartStore;
-}
+export type IProductsOverviewViewModel = ReturnType<typeof createProductsOverviewViewModel>
 
-export function createProductsOverviewViewModel(
+export interface ICreateProductsOverviewViewModelProps {
+    categoryPathSlugs: ICategoryPathSlugs;
+    category: ICategory;
     products: IProduct[],
     cartStore: ICartStore,
-): IProductsOverviewViewModel {
+}
+
+export function createProductsOverviewViewModel({ 
+    categoryPathSlugs,
+    products,
+    cartStore,
+    category,
+}: ICreateProductsOverviewViewModelProps
+) {
     return {
-        productsTitle: `${products.length} Products`,
+        productsTitle: `${products.length} ${category.categoryName || 'Products'}`,
         overviewProductViewModels: products.map((product) =>
-            createOverviewProductViewModel({product, cartStore})
+            createOverviewProductViewModel({categoryPathSlugs, product, cartStore})
         ),
         products,
         cartStore,
+
     };
 }

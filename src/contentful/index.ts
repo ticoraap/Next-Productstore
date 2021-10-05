@@ -1,4 +1,4 @@
-import { getContentApiConfig } from "../../../../config/getContentApiConfig";
+import { getContentApiConfig } from "../config/getContentApiConfig";
 import { createContentApi } from "./contentApi";
 
 const { space, environment, accessToken } = getContentApiConfig();

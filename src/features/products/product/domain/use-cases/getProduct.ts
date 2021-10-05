@@ -1,5 +1,5 @@
-import { IContentApi } from "../../../../shared/data/contentful";
-import { ContentType } from "../../../../shared/data/contentful/constants/ContentType";
+import { IContentApi } from "../../../../../contentful";
+import { ContentType } from "../../../../../contentful/constants/ContentType";
 
 export function createGetProduct(contentApi: IContentApi) {
     return (slug: string) =>  {

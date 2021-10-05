@@ -1,6 +1,6 @@
 import { deepmerge } from "../../../../utils-test/deepmerge"
 import { createCartStoreMock } from "../../../cart/domain/model/__mocks__/createCartStoreMock"
-import { IProduct } from "../../products-overview/domain/model/product"
+import { IProduct } from "../domain/model/IProduct"
 import { createProductPageViewModel, IProductPageViewModelProps } from "./ProductPageViewModel"
 
 describe('ProductPageViewModel', () => {

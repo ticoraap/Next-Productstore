@@ -1,4 +1,4 @@
-import { IProduct } from '../../products/products-overview/domain/model/product';
+import { IProduct } from '../../products/product/domain/model/IProduct';
 import { ICartProduct } from '../domain/model/cartProduct';
 import { createCartStore } from './createCartStore';
 
